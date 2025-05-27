@@ -5,10 +5,11 @@
 
 digit   [0-9]
 id      [a-zA-Z_][a-zA-Z0-9_]*
-space      [ \t\r\n]+
+space      [ \t\r]+
 
 %%
 
+"func"      { return FUNC; }
 "if"        { return IF; }
 "else"      { return ELSE; }
 "return"    { return RETURN; }
@@ -31,11 +32,16 @@ space      [ \t\r\n]+
 "-"         { return '-'; }
 "*"         { return '*'; }
 "/"         { return '/'; }
+"break"     { return BREAK; }
+","         { return ','; }
 
 {digit}+    { yylval.num = atoi(yytext); return NUMBER; }
 {id}        { yylval.id = strdup(yytext); return ID; }
 
-{space}        {}
+{space}        { /* skip whitespace, no yylineno increment here */ }
+
+
+\n             { yylineno++; }
 
 .           { return yytext[0]; }
 
