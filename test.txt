@@ -1,6 +1,61 @@
+func add(x, y) {
+    result = x + y;
+    print result;
+    return;
+}
+
+func mul(x, y) {
+    prod = x * y;
+    print prod;
+    return;
+}
+
+func complex_op(x, y, z) {
+    res = x * y + z;
+    print res;
+    return;
+}
+
 a = 10;
 b = 20;
-c=a+b*10;
-d=(a+b)*10;
+c = a + b * 2;
+print a;
+print b;
 print c;
-print d;
+
+if (c > 30) {
+    d = c - 5;
+    print d;
+} else {
+    d = c + 5;
+    print d;
+}
+
+i = 0;
+sum = 0;
+while (i < 5) {
+    sum = sum + i;
+    i = i + 1;
+}
+print sum;
+
+j = 0;
+total = 0;
+for (j = 1; j <= 5; j = j + 1) {
+    total = total + j;
+}
+print total;
+
+add(7, 8);
+mul(a, b);
+
+k = 0;
+while (k < 10) {
+    if (k == 3) {
+        break;
+    }
+    print k;
+    k = k + 1;
+}
+
+complex_op(2, 3, 4);

@@ -35,4 +35,4 @@ ast.o: ast.c ast.h
 
 # Clean generated files
 clean:
-	rm -f $(TARGET) *.o parser.tab.* lex.yy.c
+	rm -f $(TARGET) *.o parser.tab.* lex.yy.c ui_temp_input.txt

@@ -40,7 +40,6 @@ space      [ \t\r]+
 
 {space}        { /* skip whitespace, no yylineno increment here */ }
 
-
 \n             { yylineno++; }
 
 .           { return yytext[0]; }

@@ -11,7 +11,10 @@ typedef enum {
     NODE_WHILE,
     NODE_FOR,
     NODE_BLOCK,
-    NODE_PRINT, 
+    NODE_PRINT,
+    NODE_FUNCDEF,
+    NODE_FUNCCALL,
+    NODE_BREAK
 } NodeType;
 
 typedef struct ASTNode ASTNode;
@@ -55,6 +58,17 @@ struct ASTNode {
         struct {           
             char *id;
         } print_stmt;
+        struct { // Function definition
+            char *name;
+            char **params;
+            int param_count;
+            ASTNode *body;
+        } funcdef;
+        struct { // Function call
+            char *name;
+            ASTNode **args;
+            int arg_count;
+        } funccall;
     } data;
 };
 
@@ -62,18 +76,21 @@ ASTNode *new_num(int val);
 ASTNode *new_id(char *name);
 ASTNode *new_binop(const char *op, ASTNode *left, ASTNode *right);
 ASTNode *new_assign(char *id, ASTNode *expr);
+ASTNode *new_funcdef(char *name, char **params, int param_count, ASTNode *body);
+ASTNode *new_funccall(char *name, ASTNode **args, int arg_count);
+ASTNode *new_block(ASTNode **stmts, int count);
+ASTNode *new_print(char *id);
 ASTNode *new_return(ASTNode *expr);
 ASTNode *new_if(ASTNode *cond, ASTNode *thenb, ASTNode *elseb);
 ASTNode *new_while(ASTNode *cond, ASTNode *body);
 ASTNode *new_for(ASTNode *init, ASTNode *cond, ASTNode *inc, ASTNode *body);
-ASTNode *new_block(ASTNode **stmts, int count);
-ASTNode *new_print(char *id);
+ASTNode *new_break(void);
 
 void print_ast(ASTNode *node, int indent);
-void generate_code(ASTNode *node);
+void interpret(ASTNode *node);
 void free_ast(ASTNode *node);
-void interpret(ASTNode *node); 
-
-void generate_intermediate_code(ASTNode *node);
+void optimise_ast(ASTNode *root);
+void generate_intermediate_code(ASTNode *root);
+void print_symbol_table(void);
 
 #endif
