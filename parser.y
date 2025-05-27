@@ -156,7 +156,6 @@ arg_list:
 
 
 void yyerror(const char *s) {
-    int report_line = yylineno > 1 ? yylineno - 1 : yylineno;
-    fprintf(stderr, "Parse error at line %d: %s\n", report_line, s);
+    fprintf(stderr, "Parse error at line %d: %s\n", yylineno, s);
 }
 
